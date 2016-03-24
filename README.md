@@ -1,8 +1,6 @@
 # BonusProjectSI
 poly : Polynomes
 
-RESERVATION : Maxime Dimidschstein 62641400, AIGRET Julien 83431300
-
 On souhaite gérer des polynômes réels de degré inférieur ou égal à 10 en utilisant la structure suivante :
 
 typedef struct { double coeff[10]; } poly;
