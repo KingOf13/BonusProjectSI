@@ -3,9 +3,9 @@ poly : Polynomes
 
 On souhaite gérer des polynômes réels de degré inférieur ou égal à 10 en utilisant la structure suivante :  
 
-`typedef struct {  
-  double coeff[10];  
-} poly;`  
+`typedef struct {`  
+  `double coeff[10];`  
+`} poly;`  
 
 qui servira à représenter le polynôme où coeff[0] est le coefficient du terme indépendant, coeff[1] le coefficient du terme en x, etc.
 
