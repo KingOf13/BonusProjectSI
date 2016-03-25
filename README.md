@@ -26,3 +26,4 @@ qui calcule via la méthode de Newton la racine du polynôme P. La méthode est 
 
 
 Tests imposés : Les tests à réaliser ici sont intuitifs, il faut toujours s'assurer que les valeurs renvoyées correspondent bien à la solution mathématique demandée. Vu les problèmes de précision des calculs en virgule flottante, vous devez tolérer les résultats avec un certain intervalle d'erreur. Fournissez au moins 3 tests par fonction, et au moins un des 9 tests doit aller jusqu'au degré 9.
+coucou
