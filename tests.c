@@ -12,6 +12,16 @@ MARS 2016
 #include <CUnit/Basic.h>
 #include "student_code.h"
 
+// Variables de test utilisées à travers le code
+poly *test1,test2, test3, terst4;
+double coeff1[]={10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0};
+double coeff2[]={0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+double coeff3[]={42.42, 19.78, 4.1, 0.098, 7.77, 9.1111, 3.33, 13.31, 3.29, 1.2345};
+double coeff4[]={-1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+double tol = 0.01; // Tolerance entre le resultat exact et le resultat renvoye
+
+
 
 
 poly *newpoly(double a[10]) {
