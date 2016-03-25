@@ -115,7 +115,7 @@ void test_derivee_3(void)
   double sol[] = {-1,    -3,     1,     3};
   double test = 0;
   for (int i = 0; i < 4; i++) {
-    test += fabs(sol[i] - eval(derivee(test3), x[i]));
+    test += sol[i] - eval(derivee(test3), x[i]);
   }
   int ass_less = fabs(test) < threshold;
   CU_ASSERT(ass_less);
