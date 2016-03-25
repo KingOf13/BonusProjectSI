@@ -1,3 +1,5 @@
+#include "student_code.h"
+
 double eval(poly *P, double x){
   double Px = 0;
   for (int i = 9; i >= 0; i--) {

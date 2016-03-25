@@ -1,4 +1,10 @@
 #include <math.h>
+#include <stdlib.h>
+
+typedef struct {
+  double coeff[10];
+} poly;
+
 
 double eval(poly *P, double x);
 

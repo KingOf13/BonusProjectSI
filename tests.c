@@ -2,7 +2,6 @@
 Systemes Informatique LSINF1252
 Test unitaires pour les fonctions de poly
 AIGRET Julien   8343-13-00
-VANVYVE Nicolas 6590-13-00
 
 MARS 2016
 */
@@ -12,17 +11,19 @@ MARS 2016
 #include <CUnit/Basic.h>
 #include "student_code.h"
 
+
+
+
 // Variables de test utilisées à travers le code
-poly *test1,test2, test3, terst4;
+poly *test1, *test2, *test3, *test4;
 double coeff1[]={10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0};
-double coeff2[]={17.59, 13.87, 7.5631, 4.2, 3.55, 12.13, -32.12, 6.87, 22.0, 0.001};
+double coeff2[]={7.59, 13.87, 7.5631, 4.2, 3.55, 2.13, -32.12, 6.87, 2.0, 0.001};
 double coeff3[]={1.0, 1.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 double coeff4[]={0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-double tol = 0.01; // Tolerance entre le resultat exact et le resultat renvoye
+double x[]={1.0, 2.0, 0.0, -1.0};
 
-
-
+double threshold = 0.01;
 
 poly *newpoly(double a[10]) {
   poly *ret = (poly *) malloc(sizeof(poly));
@@ -34,81 +35,120 @@ poly *newpoly(double a[10]) {
 }
 
 
-/* Test si alloc passe bien à 0 apres myfree */
-void test_myfree_desalloc(void)
-{
-  int* pointeurtest = (int *) mymalloc(sizeof(int));
-  block_header *bh_test = (block_header *)(pointeurtest-1);
-  myfree(pointeurtest);
-  CU_ASSERT_EQUAL((bh_test->alloc),0);
-}
 
-/* Test si alloc passe bien à 1 apres mymalloc*/
-void test_mymalloc_alloc(void)
-{
-  int* pointeurtest = (int *) mymalloc(sizeof(int));
-  block_header *bh_test = (block_header *) (pointeurtest-4);
-  CU_ASSERT_EQUAL(((*bh_test).alloc),1);
-}
 
-/* Test si alloc passe bien à 1 apres mycalloc*/
-void test_mycalloc_alloc(void)
+/* Tests pour savoir si eval reagis normalement a la premiere fonction*/
+void test_eval_1(void)
 {
-  int* pointeurtest = (int *) mycalloc(sizeof(int));
-  block_header *bh_test = (block_header *) (pointeurtest-4);
-  CU_ASSERT_EQUAL(((*bh_test).alloc),1);
-}
-
-/* Test si la taille demandée et la taille allouée et la meme (ajustée pour etre un multiple de 4)*/
-void test_mymalloc_size(void)
-{
-  size_t ask = (sizeof(int)+3);
-  int* pointeurtest = (int *) mymalloc(ask);
-  block_header *bh_test = (block_header *) (pointeurtest-4);
-  CU_ASSERT_EQUAL(((*bh_test).size),size4(ask));
-}
-
-/* Test si deux appel a mymalloc ne revoie pas la meme adresse */
-void test_mymalloc_two_alloc(void)
-{
-  int* pointeurtest = NULL;
-  int* pointeurtest2 = NULL;
-  pointeurtest = (int *) mymalloc(sizeof(int));
-  pointeurtest2 = (int *) mymalloc(sizeof(int));
-  CU_ASSERT_NOT_EQUAL(pointeurtest,pointeurtest2);
-}
-
-/* Test si quand on demande d'allouer 0 bit mymalloc renvoie bien NULL */
-void test_mymalloc_NULL(void)
-{
-  void* pointeurtest = mymalloc(0);
-  CU_ASSERT_EQUAL(pointeurtest,NULL);
-}
-
-/* Test si apres mycalloc la valeur est bien 0 */
-void test_mycalloc_init(void)
-{
-  int* pointeurtest = NULL;
-  size_t size = 100*sizeof(int);
-  pointeurtest = mycalloc(size);
-  int i =0;
-  while (i < size)
-  {
-    if (*(pointeurtest+i) == 0)
-    {
-      i++;
-    }
-    else
-    {
-      CU_FAIL();
-    }
-    CU_PASS();
+  double sol[] = {55.0, 2036.0, 10.0, 5.0};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(test1, x[i]);
   }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si eval reagis normalement a la deuxieme fonction*/
+void test_eval_2(void)
+{
+  double sol[] = {15.6541, -439.6656, 7.5900, -38.4879};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(test2, x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si eval reagis normalement a la troisieme fonction*/
+void test_eval_3(void)
+{
+  double sol[] = {1.0, -1.0, 1.0, -1.0};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(test3, x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si eval reagis normalement a la quatrieme fonction*/
+void test_eval_4(void)
+{
+  double sol[] = {0.0, 0.0, 0.0, 0.0};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(test4, x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si derivee reagis normalement a la premiere fonction*/
+void test_derivee_1(void)
+{
+  double sol[] = {165,        7181,           9 ,          5};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(derivee(test1), x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si derivee reagis normalement a la deuxieme fonction*/
+void test_derivee_2(void)
+{
+  double sol[] = { -62.1748, -660.4536,   13.8700,  232.6128};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(derivee(test2), x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si derivee reagis normalement a la troisieme fonction*/
+void test_derivee_3(void)
+{
+  double sol[] = {-1,    -3,     1,     3};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += fabs(sol[i] - eval(derivee(test3), x[i]));
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si derivee reagis normalement a la quatrieme fonction*/
+void test_derivee_4(void)
+{
+  double sol[] = {0.0, 0.0, 0.0, 0.0};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(derivee(test4), x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
 }
 
 
-int setup(void)  { return 0; }
-int teardown(void) { return 0; }
+int setup(void)  {
+  test1=newpoly(coeff1);
+  test2=newpoly(coeff2);
+  test3=newpoly(coeff3);
+  test4=newpoly(coeff4);
+  return 0;
+}
+
+int teardown(void) {
+  free(test1);
+  free(test2);
+  free(test3);
+  free(test4);
+  return 0;
+}
 
 int main()
 {
@@ -116,19 +156,20 @@ int main()
    if (CUE_SUCCESS != CU_initialize_registry())
       return CU_get_error();
 
-   pSuite = CU_add_suite("Projet-Malloc", setup, teardown);
+   pSuite = CU_add_suite("Poly-Test-Suite", setup, teardown);
    if (NULL == pSuite) {
       CU_cleanup_registry();
       return CU_get_error();
    }
 
-   if ((NULL == CU_add_test(pSuite, "Myfree desalloc",test_myfree_desalloc)) ||
-       (NULL == CU_add_test(pSuite, "Mymalloc alloc",test_mymalloc_alloc)) ||
-       (NULL == CU_add_test(pSuite, "Mycalloc alloc",test_mycalloc_alloc)) ||
-       (NULL == CU_add_test(pSuite, "Mymalloc size",test_mymalloc_size)) ||
-       (NULL == CU_add_test(pSuite, "Mymalloc NULL",test_mymalloc_NULL)) ||
-       (NULL == CU_add_test(pSuite, "Mymalloc 2 alloc",test_mymalloc_two_alloc)) ||
-       (NULL == CU_add_test(pSuite, "Mycalloc initialisation",test_mycalloc_init))
+   if ((NULL == CU_add_test(pSuite, "Eval Func 1",test_eval_1)) ||
+       (NULL == CU_add_test(pSuite, "Eval Func 2",test_eval_2)) ||
+       (NULL == CU_add_test(pSuite, "Eval Func 3",test_eval_3)) ||
+       (NULL == CU_add_test(pSuite, "Eval Func 4",test_eval_4)) ||
+       (NULL == CU_add_test(pSuite, "Derivee Func 1",test_derivee_1)) ||
+       (NULL == CU_add_test(pSuite, "Derivee Func 2",test_derivee_2)) ||
+       (NULL == CU_add_test(pSuite, "Derivee Func 3",test_derivee_3)) ||
+       (NULL == CU_add_test(pSuite, "Derivee Func 4",test_derivee_4))
      )
    {
      CU_cleanup_registry();
