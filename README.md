@@ -10,13 +10,13 @@ typedef struct {
 qui servira à représenter le polynôme où coeff[0] est le coefficient du terme indépendant, coeff[1] le coefficient du terme en x, etc.
 
 ##Eval
-Écrivez une fonction
-                    double eval(poly * P, double x)
+Écrivez une fonction  
+                    `double eval(poly * P, double x)`
 qui calcule la valeur du polynôme P au point x. On pourra se servir de la formule de Horner : P(x) = ((...(a_9*x + a_8)x + a_7)x + ...)x + a_1)x + a_0 où a_i est coeff[i].
 
 ##Derivee
-Écrivez une fonction
-                    poly * derivee(poly * P)
+Écrivez une fonction  
+                    `poly * derivee(poly * P)`  
 qui renvoie le polynôme exprimant la dérivée du polynôme P.
 
 ##Racine
