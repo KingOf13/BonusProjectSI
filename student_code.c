@@ -1,4 +1,6 @@
 #include "student_code.h"
+#include <math.h>
+#include <stdlib.h>
 
 double eval(poly *P, double x){
   double Px = 0;

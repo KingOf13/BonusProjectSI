@@ -23,7 +23,7 @@ double coeff4[]={0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 double x[]={1.0, 2.0, 0.0, -1.0};
 
-double threshold = 0.01;
+double threshold = 0.001;
 
 poly *newpoly(double a[10]) {
   poly *ret = (poly *) malloc(sizeof(poly));
@@ -38,6 +38,7 @@ poly *newpoly(double a[10]) {
 
 
 /* Tests pour savoir si eval reagis normalement a la premiere fonction*/
+// @eval:test_eval_1 => [La fonction eval ne reagis pas correctement a un polynome de degre 9.]
 void test_eval_1(void)
 {
   double sol[] = {55.0, 2036.0, 10.0, 5.0};
@@ -50,6 +51,7 @@ void test_eval_1(void)
 }
 
 /* Tests pour savoir si eval reagis normalement a la deuxieme fonction*/
+// @eval:test_eval_2 => [La fonction eval ne reagis pas correctement a un polynome non-entier de degre 9.]
 void test_eval_2(void)
 {
   double sol[] = {15.6541, -439.6656, 7.5900, -38.4879};
@@ -62,6 +64,7 @@ void test_eval_2(void)
 }
 
 /* Tests pour savoir si eval reagis normalement a la troisieme fonction*/
+// @eval:test_eval_3 => [La fonction eval ne reagis pas correctement a un polynome a coefficients negatifs.]
 void test_eval_3(void)
 {
   double sol[] = {1.0, -1.0, 1.0, -1.0};
@@ -74,6 +77,7 @@ void test_eval_3(void)
 }
 
 /* Tests pour savoir si eval reagis normalement a la quatrieme fonction*/
+// @eval:test_eval_4 => [La fonction eval ne reagis pas correctement a un polynome nul.]
 void test_eval_4(void)
 {
   double sol[] = {0.0, 0.0, 0.0, 0.0};
@@ -86,6 +90,7 @@ void test_eval_4(void)
 }
 
 /* Tests pour savoir si derivee reagis normalement a la premiere fonction*/
+// @derivee:test_derivee_1 => [La fonction derivee ne reagis pas correctement a un polynome entier de degre 9.]
 void test_derivee_1(void)
 {
   double sol[] = {165,        7181,           9 ,          5};
@@ -98,6 +103,7 @@ void test_derivee_1(void)
 }
 
 /* Tests pour savoir si derivee reagis normalement a la deuxieme fonction*/
+// @derivee:test_derivee_2 => [La fonction derivee ne reagis pas correctement a un polynome non-entier de degre 9.]
 void test_derivee_2(void)
 {
   double sol[] = { -62.1748, -660.4536,   13.8700,  232.6128};
@@ -110,6 +116,7 @@ void test_derivee_2(void)
 }
 
 /* Tests pour savoir si derivee reagis normalement a la troisieme fonction*/
+// @derivee:test_derivee_3 => [La fonction derivee ne reagis pas correctement a un polynome entier negatif.]
 void test_derivee_3(void)
 {
   double sol[] = {-1,    -3,     1,     3};
@@ -122,6 +129,7 @@ void test_derivee_3(void)
 }
 
 /* Tests pour savoir si derivee reagis normalement a la quatrieme fonction*/
+// @derivee:test_derivee_4 => [La fonction derivee ne reagis pas correctement a un polynome nul.]
 void test_derivee_4(void)
 {
   double sol[] = {0.0, 0.0, 0.0, 0.0};
@@ -132,6 +140,58 @@ void test_derivee_4(void)
   int ass_less = fabs(test) < threshold;
   CU_ASSERT(ass_less);
 }
+
+
+
+/* Tests pour savoir si racine reagis normalement a la premiere fonction*/
+// @racine:test_racine_1 => [La fonction racine ne reagis pas correctement a un polynome entier de degre 9.]
+void test_racine_1(void)
+{
+  double sol = -1.3386;
+  double test = sol - racine((test1), -1);
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si racine reagis normalement a la deuxieme fonction*/
+// @racine:test_racine_2 => [La fonction racine ne reagis pas correctement a un polynome non-entier de degre 9.]
+void test_racine_2(void)
+{
+  double sol[] = { -62.1748, -660.4536,   13.8700,  232.6128};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(derivee(test2), x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si derivee reagis normalement a la troisieme fonction*/
+// @derivee:test_derivee_3 => [La fonction derivee ne reagis pas correctement a un polynome entier negatif.]
+void test_derivee_3(void)
+{
+  double sol[] = {-1,    -3,     1,     3};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(derivee(test3), x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
+/* Tests pour savoir si derivee reagis normalement a la quatrieme fonction*/
+// @derivee:test_derivee_4 => [La fonction derivee ne reagis pas correctement a un polynome nul.]
+void test_derivee_4(void)
+{
+  double sol[] = {0.0, 0.0, 0.0, 0.0};
+  double test = 0;
+  for (int i = 0; i < 4; i++) {
+    test += sol[i] - eval(derivee(test4), x[i]);
+  }
+  int ass_less = fabs(test) < threshold;
+  CU_ASSERT(ass_less);
+}
+
 
 
 int setup(void)  {
@@ -169,7 +229,7 @@ int main()
        (NULL == CU_add_test(pSuite, "Derivee Func 1",test_derivee_1)) ||
        (NULL == CU_add_test(pSuite, "Derivee Func 2",test_derivee_2)) ||
        (NULL == CU_add_test(pSuite, "Derivee Func 3",test_derivee_3)) ||
-       (NULL == CU_add_test(pSuite, "Derivee Func 4",test_derivee_4))
+       (NULL == CU_add_test(pSuite, "Derivee Func 4",test_derivee_4)) ||
      )
    {
      CU_cleanup_registry();
