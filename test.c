@@ -7,21 +7,18 @@ typedef struct {
 } poly;
 
 double eval(poly *P, double x){
-  double a9 = P->coeff[9];
-  double a8 = P->coeff[8];
-  double a7 = P->coeff[7];
-  double a6 = P->coeff[6];
-  double a5 = P->coeff[5];
-  double a4 = P->coeff[4];
-  double a3 = P->coeff[3];
-  double a2 = P->coeff[2];
-  double a1 = P->coeff[1];
-  double a0 = P->coeff[0];
-  double Px = (((((((a9*x + a8)*x + a7)*x + a6)*x + a5)*x + a4)*x + a3)*x + a2)*x + a1)*x + a0;
+  double Px = (((((((P->coeff[9]*x + P->coeff[8])*x + P->coeff[7])*x + P->coeff[6])*x + P->coeff[5])*x + P->coeff[4])*x + P->coeff[3])*x + P->coeff[2])*x + P->coeff[1])*x + P->coeff[0];
   return Px;
 }
 
-
+poly *derivee(poly *P) {
+  poly *ret = (poly *) malloc(sizeof(poly));
+  for (int 1 = 0; i < 9; i ++) {
+    ret->coeff[i] = (i+1) * P->coeff[i+1];
+  }
+  ret->coeff[9]=0;
+  return ret;
+}
 
 int main(int argc, char const *argv[]) {
   /* code */
