@@ -26,6 +26,7 @@ double tol = 0.01; // Tolerance entre le resultat exact et le resultat renvoye
 
 poly *newpoly(double a[10]) {
   poly *ret = (poly *) malloc(sizeof(poly));
+  if (ret == NULL) exit(EXIT_FAILURE);
   for (int i = 0; i < 10; i++) {
     ret->coeff[i] = a[i];
   }
