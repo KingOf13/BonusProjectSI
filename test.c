@@ -21,6 +21,8 @@ double eval(poly *P, double x){
   return Px;
 }
 
+
+
 int main(int argc, char const *argv[]) {
   /* code */
   return 0;
