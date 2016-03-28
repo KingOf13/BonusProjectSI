@@ -157,16 +157,16 @@ void test_racine_1(void)
 void test_racine_2(void)
 {
   double test = racine(test2, 3);
-  int ass_less = fabs(eval(test2,test) < threshold;
+  int ass_less = fabs(eval(test2,test)) < threshold;
   CU_ASSERT(ass_less);
 }
 
 /* Tests pour savoir si racine reagis normalement a la troisieme fonction*/
 // @racine:test_racine_3 => [La fonction racine ne reagis pas correctement a un polynome entier negatif.]
-void test_derivee_3(void)
+void test_racine_3(void)
 {
   double test = racine(test3, 2);
-  int ass_less = fabs(eval(test3,test) < threshold;
+  int ass_less = fabs(eval(test3,test)) < threshold;
   CU_ASSERT(ass_less);
 }
 
@@ -175,7 +175,7 @@ void test_derivee_3(void)
 void test_racine_4(void)
 {
   double test = racine(test4, 3);
-  int ass_less = fabs(eval(test4,test) < threshold;
+  int ass_less = fabs(eval(test4,test)) < threshold;
   CU_ASSERT(ass_less);
 }
 
